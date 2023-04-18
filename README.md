@@ -6,7 +6,7 @@ various modes with memory for follow-up questions and streaming live responses.
 ## Prerequisites
 
 - Python 3.11 is recommended.
-- You need an OpenAI API key. Obtain one from the [OpenAI website](https://beta.openai.com/signup/).
+- You need an OpenAI API key. Obtain one from the [OpenAI website](https://platform.openai.com/account/api-keys).
 
 ## Installation
 
@@ -45,7 +45,6 @@ python cli.py
 ```bash
 python cli.py --no-stream
 ```
-
 To use the GPT-3.5-turbo model, pass the extra argument `--gpt3`:
 
 ```bash
@@ -53,14 +52,12 @@ python cli.py --memory --gpt3
 python cli.py --gpt3
 python cli.py --no-stream --gpt3
 ```
-
 ### To send a message, press "Esc + Return" while using the chatbot.
 
 To exit the session:
 type ```!exit``` and press **"Esc + Return"**
 
 ## Known Issues
-
 1. Chat typing animation for non-live response mode is not displaying the time properly.
 2. Code snippets are not formatted correctly for the streaming mode.
 
