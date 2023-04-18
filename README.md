@@ -54,6 +54,11 @@ python cli.py --gpt3
 python cli.py --no-stream --gpt3
 ```
 
+### To send a message, press "Esc + Return" while using the chatbot.
+
+To exit the session:
+type ```!exit``` and press **"Esc + Return"**
+
 ## Known Issues
 
 1. Chat typing animation for non-live response mode is not displaying the time properly.
