@@ -46,6 +46,8 @@ async def main(args):
 
     :param args: The command line arguments passed to the script.
     """
+    print("Welcome!!,  To send message, press 'Esc + Return/Enter', for help type !help and pres 'Esc + "
+          "Return/Enter', to exit the session - type !exit and press 'Esc + Return/Enter'")
     model_str = "GPT4"
     chat_gpt = ChatGPT(api_key=OPENAI_API_KEY, model_name="gpt-4")
     console = chat_gpt.console
@@ -57,8 +59,13 @@ async def main(args):
     memory_manager = None
 
     if args.memory or args.memory_stream:
+        print("This mode supports follow up questions... Reset the memory by typing !reset-memory and press 'Esc + "
+              "Return'")
         memory_manager = (MemoryManager(chat_gpt=chat_gpt) if args.memory
                           else MemoryManager(chat_gpt=chat_gpt, is_stream=True))
+    else:
+        print("This mode doesnt support follow up questions. If you want to ask follow up questions, restart with "
+              "--memory-stream")
 
     session = create_session()
 
