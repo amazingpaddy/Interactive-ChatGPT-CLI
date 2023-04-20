@@ -48,6 +48,7 @@ async def main(args):
     """
     model_str = "GPT4"
     chat_gpt = ChatGPT(api_key=OPENAI_API_KEY, model_name="gpt-4")
+    console = chat_gpt.console
     if args.gpt3:
         model_str = "GPT3.5"
         chat_gpt = ChatGPT(api_key=OPENAI_API_KEY, model_name="gpt-3.5-turbo")
@@ -63,33 +64,41 @@ async def main(args):
 
     while True:
         print("\nYou:")
-        question = await get_input_async(session=session)
+        request = await get_input_async(session=session)
         print()
         print()
 
-        if question == "!exit":
+        if request == "!exit":
             break
-        elif question == "!help":
+        elif request == "!help":
             print(
                 """
             !help - Show this help message
             !exit - Exit the program
+            !reset
             """,
             )
+            continue
+        elif request == "!reset-memory":
+            if args.memory or args.memory_stream:
+                memory_manager.reset_memory(is_stream=args.memory_stream)
+                print("Memory Cleared!!")
+            else:
+                print("Reset only works for memory or memory-stream mode. For other modes, nothing to clear")
             continue
 
         print(f"{model_str}:")
 
         if args.no_stream:
-            chat_gpt.console.print(await chat_gpt.ask(prompt=question),
-                                   end='', markup=True, highlight=True, emoji=True)
+            console.print(await chat_gpt.ask(prompt=request),
+                          end='', markup=True, highlight=True, emoji=True)
         elif args.memory:
-            chat_gpt.console.print(await chat_gpt.ask_mem(question, memory_manager.conversation_chain),
-                                   end='', markup=True, highlight=True, emoji=True)
+            console.print(await chat_gpt.ask_mem(request, memory_manager.conversation_chain),
+                          end='', markup=True, highlight=True, emoji=True)
         elif args.memory_stream:
-            pass
+            await chat_gpt.ask_mem_stream(request, memory_manager.conversation_chain)
         else:
-            await chat_gpt.ask_stream(prompt=question)
+            await chat_gpt.ask_stream(prompt=request)
 
 
 if __name__ == "__main__":

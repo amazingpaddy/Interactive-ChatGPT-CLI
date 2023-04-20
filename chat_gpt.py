@@ -3,6 +3,9 @@ import time
 from functools import wraps
 
 import openai
+from langchain.chains import ConversationChain
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder, \
+    HumanMessagePromptTemplate
 from openai.error import RateLimitError
 from rich.console import Console
 from rich.markdown import Markdown
@@ -120,3 +123,18 @@ class ChatGPT:
         """
         if prompt:
             return Markdown(conv_chain.run(input=prompt))
+
+    async def ask_mem_stream(self, prompt, conv_chain: ConversationChain):
+        """
+        Asynchronously sends a prompt to the GPT model using memory management and prints the generated response.
+
+        :param prompt: The user input to be processed by the GPT model.
+        :param conv_chain: The conversation chain object used to manage memory in the conversation.
+        """
+        if prompt:
+            req = ChatPromptTemplate.from_messages([
+                MessagesPlaceholder(variable_name="history"),
+                HumanMessagePromptTemplate.from_template("{input}")
+            ])
+            conv_chain.prompt = req
+            await conv_chain.arun(input=prompt)
