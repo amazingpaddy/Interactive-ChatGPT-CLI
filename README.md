@@ -25,16 +25,25 @@ Usage
 
 To run the application with GPT-4, you can use various modes:
 
-### Memory mode
+### Memory mode - (supports follow-up questions but uses more tokens and is slightly slower than non-memory mode.)
 
-With memory (supports follow-up questions but uses more tokens and is slightly slower than non-memory mode. **Streaming
-live response is not supported for memory mode**.):
+With memory and live Streaming response.
+
+```bash
+python cli.py --memory-stream
+```
+
+With memory:
 
 ```bash
 python cli.py --memory
 ```
+**To send a message, press "Esc + Return" while using the chatbot.**
+**To reset the memory**
+Inside the session, type ```!reset-memory``` and press **"Esc + Return"**
 
-### Non memory mode - Streaming response
+### Non Memory Mode - Doesnt support follow up questions. Best fit for single request and response.
+### Non memory mode - Streaming response 
 
 ```bash
 python cli.py
@@ -48,16 +57,15 @@ python cli.py --no-stream
 To use the GPT-3.5-turbo model, pass the extra argument `--gpt3`:
 
 ```bash
+python cli.py --memory-stream --gpt3
 python cli.py --memory --gpt3
 python cli.py --gpt3
 python cli.py --no-stream --gpt3
 ```
-### To send a message, press "Esc + Return" while using the chatbot.
 
 To exit the session:
 type ```!exit``` and press **"Esc + Return"**
 
 ## Known Issues
 1. Chat typing animation for non-live response mode is not displaying the time properly.
-2. Code snippets are not formatted correctly for the streaming mode.
 
