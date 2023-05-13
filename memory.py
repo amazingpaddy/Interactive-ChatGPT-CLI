@@ -1,7 +1,7 @@
 from langchain.callbacks.base import CallbackManager
 from langchain.chains import ConversationChain
-from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationSummaryBufferMemory
 
 from chat_gpt import ChatGPT
 from config import OPENAI_API_KEY, CHAT_SETTINGS
@@ -11,7 +11,7 @@ from streaming_handler import CustomStreamingStdOutCallbackHandler
 class MemoryManager:
     """
     MemoryManager is a class that manages memory-related functionalities for the chat application.
-    It initializes and manages ConversationEntityMemory and ConversationChain objects.
+    It initializes and manages ConversationSummaryBufferMemory and ConversationChain objects.
     """
 
     def __init__(self, chat_gpt: ChatGPT, is_stream: bool = False):
@@ -51,7 +51,9 @@ class MemoryManager:
 
         # Initialize the ConversationChain instance for managing the conversation process.
         self.conversation_chain = ConversationChain(llm=self.llm,
-                                                    memory=ConversationBufferMemory(return_messages=True))
+                                                    memory=ConversationSummaryBufferMemory(llm=self.llm,
+                                                                                           max_token_limit=1500,
+                                                                                           return_messages=True))
 
     def reset_memory(self, is_stream: bool):
         self.init_memory(is_stream)
