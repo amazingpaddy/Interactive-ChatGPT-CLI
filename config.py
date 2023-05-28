@@ -12,6 +12,6 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 # while higher values (e.g., 1.0) make the responses more diverse and creative.
 # "max_tokens" is the maximum number of tokens (words or word pieces) in the generated response.
 CHAT_SETTINGS = {
-    "temperature": 0.4,
+    "temperature": 0,
     "max_tokens": 4000,
 }
