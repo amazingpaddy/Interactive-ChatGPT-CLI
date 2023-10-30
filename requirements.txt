@@ -1,4 +1,0 @@
-asyncio~=3.4.3
-rich==13.3.5
-langchain==0.0.144
-openai==0.27.6

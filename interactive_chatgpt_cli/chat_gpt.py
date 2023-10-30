@@ -11,7 +11,7 @@ from rich.console import Console
 from rich.markdown import Markdown
 from rich.progress import Progress
 
-from config import CHAT_SETTINGS
+from .config import CHAT_SETTINGS
 
 
 def typing_animation_decorator(func):

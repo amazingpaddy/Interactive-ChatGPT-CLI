@@ -14,7 +14,7 @@ various modes with memory for follow-up questions and streaming live responses.
 2. Install the required dependencies using the following command:
 
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 ## Configuration
@@ -30,13 +30,13 @@ To run the application with GPT-4, you can use various modes:
 With memory and live Streaming response.
 
 ```bash
-python cli.py --memory-stream
+gpt --memory-stream
 ```
 
 With memory:
 
 ```bash
-python cli.py --memory
+gpt --memory
 ```
 **To send a message, press "Esc + Return" while using the chatbot.**
 **To reset the memory**
@@ -46,21 +46,21 @@ Inside the session, type ```!reset-memory``` and press **"Esc + Return"**
 ### Non memory mode - Streaming response 
 
 ```bash
-python cli.py
+gpt
 ```
 
 ### Non-memory mode without streaming or live response
 
 ```bash
-python cli.py --no-stream
+gpt --no-stream
 ```
 To use the GPT-3.5-turbo model, pass the extra argument `--gpt3`:
 
 ```bash
-python cli.py --memory-stream --gpt3
-python cli.py --memory --gpt3
-python cli.py --gpt3
-python cli.py --no-stream --gpt3
+gpt --memory-stream --gpt3
+gpt --memory --gpt3
+gpt --gpt3
+gpt --no-stream --gpt3
 ```
 
 To exit the session:

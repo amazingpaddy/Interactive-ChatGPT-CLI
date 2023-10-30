@@ -6,10 +6,10 @@ from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
 
-from chat_gpt import ChatGPT
-from config import CHAT_SETTINGS
-from config import OPENAI_API_KEY
-from memory import MemoryManager
+from .chat_gpt import ChatGPT
+from .config import CHAT_SETTINGS
+from .config import OPENAI_API_KEY
+from .memory import MemoryManager
 
 
 def create_session() -> PromptSession:
@@ -108,7 +108,7 @@ async def main(args):
             await chat_gpt.ask_stream(prompt=request)
 
 
-if __name__ == "__main__":
+def python_main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--gpt3", action="store_true")
     parser.add_argument("--no-stream", action="store_true")
@@ -116,3 +116,6 @@ if __name__ == "__main__":
     parser.add_argument("--memory-stream", action="store_true")
     args = parser.parse_args()
     asyncio.run(main(args))
+
+if __name__ == "__main__":
+    python_main()
