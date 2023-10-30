@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import sys
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
@@ -11,6 +12,8 @@ from .config import CHAT_SETTINGS
 from .config import OPENAI_API_KEY
 from .memory import MemoryManager
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 def create_session() -> PromptSession:
     """
@@ -46,7 +49,7 @@ async def main(args):
 
     :param args: The command line arguments passed to the script.
     """
-    print("Welcome!!,  To send message, press 'Esc + Return/Enter', for help type !help and pres 'Esc + "
+    eprint("Welcome!!,  To send message, press 'Esc + Return/Enter', for help type !help and pres 'Esc + "
           "Return/Enter', to exit the session - type !exit and press 'Esc + Return/Enter'")
     model_str = "GPT4"
     chat_gpt = ChatGPT(api_key=OPENAI_API_KEY, model_name="gpt-4")
@@ -59,26 +62,25 @@ async def main(args):
     memory_manager = None
 
     if args.memory or args.memory_stream:
-        print("This mode supports follow up questions... Reset the memory by typing !reset-memory and press 'Esc + "
+        eprint("This mode supports follow up questions... Reset the memory by typing !reset-memory and press 'Esc + "
               "Return'")
         memory_manager = (MemoryManager(chat_gpt=chat_gpt) if args.memory
                           else MemoryManager(chat_gpt=chat_gpt, is_stream=True))
     else:
-        print("This mode doesnt support follow up questions. If you want to ask follow up questions, restart with "
+        eprint("This mode doesnt support follow up questions. If you want to ask follow up questions, restart with "
               "--memory-stream")
 
     session = create_session()
 
     while True:
-        print("\nYou:")
+        eprint("\nYou:")
         request = await get_input_async(session=session)
-        print()
-        print()
+        eprint("\n")
 
         if request == "!exit":
             break
         elif request == "!help":
-            print(
+            eprint(
                 """
             !help - Show this help message
             !exit - Exit the program
@@ -89,12 +91,12 @@ async def main(args):
         elif request == "!reset-memory":
             if args.memory or args.memory_stream:
                 memory_manager.reset_memory(is_stream=args.memory_stream)
-                print("Memory Cleared!!")
+                eprint("Memory Cleared!!")
             else:
-                print("Reset only works for memory or memory-stream mode. For other modes, nothing to clear")
+                eprint("Reset only works for memory or memory-stream mode. For other modes, nothing to clear")
             continue
 
-        print(f"{model_str}:")
+        eprint(f"{model_str}:")
 
         if args.no_stream:
             console.print(await chat_gpt.ask(prompt=request),
