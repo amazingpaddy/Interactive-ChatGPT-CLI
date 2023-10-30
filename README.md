@@ -14,7 +14,7 @@ various modes with memory for follow-up questions and streaming live responses.
 2. Install the required dependencies using the following command:
 
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 ## Configuration

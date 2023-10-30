@@ -3,9 +3,9 @@ from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationSummaryBufferMemory
 
-from chat_gpt import ChatGPT
-from config import OPENAI_API_KEY, CHAT_SETTINGS
-from streaming_handler import CustomStreamingStdOutCallbackHandler
+from .chat_gpt import ChatGPT
+from .config import OPENAI_API_KEY, CHAT_SETTINGS
+from .streaming_handler import CustomStreamingStdOutCallbackHandler
 
 
 class MemoryManager:

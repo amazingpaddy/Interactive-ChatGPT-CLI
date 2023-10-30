@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "interactive_chatgpt_cli"
+version = "0.0.1"
+description = "A CLI for interacting with ChatGPT"
+dependencies = [
+    "asyncio~=3.4.3",
+    "rich==13.3.5",
+    "langchain==0.0.144",
+    "openai~=0.27.6"
+]
+license = {file = "LICENSE"}
+
+[[authors]]
+name = "amazingpaddy"
+
+[[authors]]
+name = "Fredrick Brennan"
+email = "copypaste@kittens.ph"
+
+[[scripts]]
+gpt = "interactive_chatgpt_cli.__main__:main"
+
+[options]
+packages = ["interactive_chatgpt_cli"]
